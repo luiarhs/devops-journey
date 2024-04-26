@@ -1,0 +1,6 @@
+@devops_journey_HostAddress = http://localhost:5215
+
+GET {{devops_journey_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
