@@ -36,14 +36,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHealthChecks("/healthz");
+app.MapHealthChecks("api/v1/healthz");
 
-app.MapHealthChecks("/healthz/ready", new HealthCheckOptions
+app.MapHealthChecks("api/v1/healthz/ready", new HealthCheckOptions
 {
     Predicate = healthCheck => healthCheck.Tags.Contains("ready")
 });
 
-app.MapHealthChecks("/healthz/live", new HealthCheckOptions
+app.MapHealthChecks("api/v1/healthz/live", new HealthCheckOptions
 {
     Predicate = _ => false
 });
