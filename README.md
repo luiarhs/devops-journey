@@ -25,6 +25,12 @@ az login
 # Create Resource Group
 az group create --location region --name name-rg
 
+# Set Subscription
+az account set --subscription "subscription-id"
+
+# Set Default Resource Group
+az configure --defaults group=name-rg
+
 # Create Storage Account
 az storage account create --name name --location region --sku Standard_LRS
 
