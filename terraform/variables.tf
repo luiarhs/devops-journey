@@ -4,8 +4,8 @@ variable "name" {
 }
 variable "container_registry_name" {
   type    = string
-  default = "devops-acr"
-  
+  default = "journeyacr"
+
 }
 variable "registry-sku" {
   type    = string
@@ -14,8 +14,8 @@ variable "registry-sku" {
 
 variable "storage_account_name" {
   type    = string
-  default = "devopssadev"
-  
+  default = "journeysadev"
+
 }
 
 variable "resource_group_name" {}

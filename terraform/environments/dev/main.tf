@@ -2,8 +2,8 @@
 module "aks_cluster" {
   source  = "../../modules/aks"
   // Configuration for AKS module
-  resource_group_name = "devops-rg"
-  cluster_name        = "akscluster-dev"
+  resource_group_name = "journey-rg"
+  cluster_name        = "journeycluster-dev"
   location            = "southcentralus"
   node_count          = 3
   node_vm_size        = "Standard_DS2_v2"
