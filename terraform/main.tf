@@ -3,10 +3,10 @@
 # Define any global resources that are shared across all environments
 // For example, you might define a storage account, virtual network, etc.
 # Create Resource Group
-resource "azurerm_resource_group" "DemoRG" {
-  name     = var.resource_group_name
-  location = var.location
-}
+# resource "azurerm_resource_group" "DemoRG" {
+#   name     = var.resource_group_name
+#   location = var.location
+# }
 
 
 # Create Azure Container Registry
