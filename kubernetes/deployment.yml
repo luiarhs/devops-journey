@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: journeyapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: journeyapp
+  template:
+    metadata:
+      labels:
+        app: journeyapp
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: journeyapp
+        image: luiarhs/journey-api:lastest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m 
+            memory: 128Mi
+          limits:
+            cpu: 100m
+            memory: 256Mi
+        ports:
+        - containerPort: 80
+        env:
+        - name: TEST
+          value: "journeyapp"
+        volumeMounts:
+        - mountPath: /tmp/data
+          name: journey-pvc
+      volumes:
+      - name: journey-pvc
+        persistentVolumeClaim:
+          claimName: journey-pvc
+      terminationGracePeriodSeconds: 30
