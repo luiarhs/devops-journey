@@ -1,4 +1,4 @@
-name: 'AKS Deployment'
+name: AKS Deployment
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: Terraform
     runs-on: ubuntu-latest
     environment: production
     env:
