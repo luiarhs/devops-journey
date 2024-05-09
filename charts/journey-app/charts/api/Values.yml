@@ -1,0 +1,10 @@
+replicaCount: 3
+
+image:
+  repository: luiarhs/journey-api
+  tag: latest
+
+service:
+  type: LoadBalancer
+  externalPort: 80
+  internalPort: 80
