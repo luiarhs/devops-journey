@@ -1,0 +1,2 @@
+# Define service for Azure MySQL Database, if needed
+# For example, you might expose a headless service for internal communication

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "database.fullname" . }}
+  labels:
+    app: {{ include "database.name" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "database.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "database.name" . }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "mysql:latest"
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: "{{ .Values.mysqlRootPassword }}"
+          - name: MYSQL_DATABASE
+            value: "{{ .Values.mysqlDatabaseName }}"
+          - name: MYSQL_USER
+            value: "{{ .Values.mysqlUsername }}"
+          - name: MYSQL_PASSWORD
+            value: "{{ .Values.mysqlPassword }}"
+        ports:
+          - containerPort: 3306
+            protocol: TCP
