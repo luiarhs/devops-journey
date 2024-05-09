@@ -9,29 +9,41 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-  variables:
-    solution: '**/*.sln'
-    buildPlatform: 'Any CPU'
-    buildConfiguration: 'Release'
-  
-  steps:
-  - script: echo Hello, world!
-    displayName: 'Run a one-line script'
+stages:
+- stage: Terraform_Build
+  displayName: 'Build Resource Group with Terraform'
+  jobs: 
+  - job: Build
+    displayName: Build Resource Group
+    timeoutInMinutes: 30 # job times out in 30 minutes
+    steps: 
+      - task: TerraformInstaller@1
+        displayName: terrafrom Install
+        inputs:
+          terraformVersion: 'latest'
+      - task: TerraformTaskV2@2
+        displayName: terraform init
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+          backendServiceArm: 'aks provisioning-Infra'
+          backendAzureRmResourceGroupName: 'journey-rg'
+          backendAzureRmStorageAccountName: 'journeytfstate'
+          backendAzureRmContainerName: 'terraform'
+          backendAzureRmKey: 'tf/terraform.tfstate'
 
-  - task: NuGetToolInstaller@1
-  
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '$(solution)'
-  
-  - task: VSBuild@1
-    inputs:
-      solution: '$(solution)'
-      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-      platform: '$(buildPlatform)'
-      configuration: '$(buildConfiguration)'
-  
-  - task: VSTest@2
-    inputs:
-      platform: '$(buildPlatform)'
-      configuration: '$(buildConfiguration)'
+      - task: TerraformTaskV4@4
+        displayName: Run terraform Validate
+        inputs:
+          provider: 'azurerm'
+          command: 'validate'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+
+      - task: TerraformTaskV4@4
+        displayName: run terraform Plan
+        inputs:
+          provider: 'azurerm'
+          command: 'plan'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+          environmentServiceNameAzureRM: 'aks provisioning-Infra'
