@@ -1,4 +1,4 @@
-# DevOps Journey
+no# DevOps Journey
 
 ### Install Dependencies
 
@@ -52,6 +52,7 @@ terraform apply
 api/
 |
 web/
+kubernetes/
 |
 terraform/
 │
