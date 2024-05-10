@@ -1,4 +1,5 @@
-no# DevOps Journey
+# DevOps Journey
+## From Zero to Hero
 
 ### Install Dependencies
 
