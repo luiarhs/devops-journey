@@ -38,3 +38,17 @@ spec:
         persistentVolumeClaim:
           claimName: journey-pvc
       terminationGracePeriodSeconds: 30
+controller:
+  config:
+    custom-http-errors: >-
+      401,403,404,500,501,502,503
+defaultBackend:
+  enabled: true
+  image:
+    repository: ghcr.io/tarampampam/error-pages
+    tag: latest # Using the latest tag is highly discouraged. Please, use tags in X.Y.Z format
+  extraEnvs:
+  - name: TEMPLATE_NAME # Optional: change the default theme
+    value: l7-dark
+  - name: SHOW_DETAILS # Optional: enables the output of additional information on error pages
+    value: 'true'
