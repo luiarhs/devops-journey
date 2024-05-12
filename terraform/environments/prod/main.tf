@@ -40,6 +40,32 @@ resource "azurerm_subnet" "db_subnet" {
   address_prefixes     = ["10.9.2.0/24"]
 }
 
+# Define network interface for application VM
+resource "azurerm_network_interface" "app_vm_interface" {
+  name                = "app-vm-interface"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+
+  ip_configuration {
+    name                          = "app-ip-config"
+    subnet_id                     = azurerm_subnet.app_subnet.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+# Define network interface for database VM
+resource "azurerm_network_interface" "db_vm_interface" {
+  name                = "db-vm-interface"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+
+  ip_configuration {
+    name                          = "db-ip-config"
+    subnet_id                     = azurerm_subnet.db_subnet.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
 
 # Define virtual network
 resource "azurerm_virtual_network" "main" {
