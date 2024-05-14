@@ -65,7 +65,53 @@ resource "azurerm_network_interface" "db_vm_interface" {
     private_ip_address_allocation = "Dynamic"
   }
 }
+ # 4. Define virtual machine for application
+resource "azurerm_linux_virtual_machine" "app_vm" {
+  name                            = "app-vm"
+  resource_group_name             = azurerm_resource_group.main.name
+  location                        = azurerm_resource_group.main.location
+  size                            = "Standard_DS1_v2" # Choose your desired VM size
+  admin_username                  = "adminuser"
+  admin_password                  = "adminPa$$word" # Ensure your password meets Azure requirements
 
+  network_interface_ids           = [azurerm_network_interface.app_vm_interface.id]
+
+  os_disk {
+    caching                       = "ReadWrite"
+    storage_account_type          = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher                     = "Canonical"
+    offer                         = "UbuntuServer"
+    sku                           = "20_04-lts"
+    version                       = "latest"
+  }
+}
+
+# Define virtual machine for database
+resource "azurerm_linux_virtual_machine" "db_vm" {
+  name                            = "db-vm"
+  resource_group_name             = azurerm_resource_group.main.name
+  location                        = azurerm_resource_group.main.location
+  size                            = "Standard_DS1_v2" # Choose your desired VM size
+  admin_username                  = "adminuser"
+  admin_password                  = "adminPa$$word" # Ensure your password meets Azure requirements
+
+  network_interface_ids           = [azurerm_network_interface.db_vm_interface.id]
+
+  os_disk {
+    caching                       = "ReadWrite"
+    storage_account_type          = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher                     = "Canonical"
+    offer                         = "UbuntuServer"
+    sku                           = "20_04-lts"
+    version                       = "latest"
+  }
+}
 
 # Define virtual network
 resource "azurerm_virtual_network" "main" {
