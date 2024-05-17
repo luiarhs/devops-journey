@@ -176,7 +176,7 @@ resource "azurerm_lb" "app_lb" {
 resource "azurerm_lb_backend_address_pool" "app_lb_backend_pool" {
   name                = "app_lb_backend_pool"
   loadbalancer_id     = azurerm_lb.app_lb.id
-  resource_group_name = azurerm_resource_group.rg.name
+  # resource_group_name = azurerm_resource_group.rg.name
 }
 
 #9 Define Network Interface Backend Address Pool Association
@@ -194,7 +194,7 @@ resource "azurerm_network_interface_backend_address_pool_association" "app_lb_as
 #10 Define Load Balancer Rules
 resource "azurerm_lb_rule" "app_tcp_80" {
   name                           = "app_tcp_80"
-  resource_group_name            = azurerm_resource_group.rg.name
+  # resource_group_name            = azurerm_resource_group.rg.name
   loadbalancer_id                = azurerm_lb.app_lb.id
   protocol                       = "Tcp"
   frontend_port                  = 80
@@ -205,7 +205,7 @@ resource "azurerm_lb_rule" "app_tcp_80" {
 
 resource "azurerm_lb_rule" "app_tcp_443" {
   name                           = "app_tcp_443"
-  resource_group_name            = azurerm_resource_group.rg.name
+  # resource_group_name            = azurerm_resource_group.rg.name
   loadbalancer_id                = azurerm_lb.app_lb.id
   protocol                       = "Tcp"
   frontend_port                  = 443
