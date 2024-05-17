@@ -143,3 +143,19 @@ resource "azurerm_public_ip" "public_ip_lb" {
   allocation_method   = "Static"
   sku                 = "Standard"
 }
+
+#6 Define Bastion Host
+resource "azurerm_bastion_host" "bastion" {
+  name                = "bastion"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  dns_name            = "bastionhost"
+
+  ip_configuration {
+    name                 = "bastion_config"
+    subnet_id            = azurerm_subnet.AzureBastionSubnet.id
+    public_ip_address_id = azurerm_public_ip.public_ip_bastion.id
+  }
+
+  sku = "Standard"
+}
