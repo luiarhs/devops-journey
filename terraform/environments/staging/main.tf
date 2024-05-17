@@ -171,3 +171,11 @@ resource "azurerm_lb" "app_lb" {
     public_ip_address_id = azurerm_public_ip.public_ip_lb.id
   }
 }
+
+#8 Define Load Balancer Backend Pool
+resource "azurerm_lb_backend_address_pool" "app_lb_backend_pool" {
+  name                = "app_lb_backend_pool"
+  loadbalancer_id     = azurerm_lb.app_lb.id
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
