@@ -179,3 +179,14 @@ resource "azurerm_lb_backend_address_pool" "app_lb_backend_pool" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
+#9 Define Network Interface Backend Address Pool Association
+# resource "azurerm_network_interface_backend_address_pool_association" "app_vm_association" {
+#   network_interface_id    = azurerm_network_interface.app_vm_interface.id
+#   ip_configuration_name    = azurerm_network_interface.app_vm_interface.ip_configuration.0.name
+#   backend_address_pool_id  = azurerm_lb_backend_address_pool.app_lb_backend_pool.id
+# }
+resource "azurerm_network_interface_backend_address_pool_association" "app_lb_association" {
+  network_interface_id    = azurerm_network_interface.app_vm_interface.id
+  ip_configuration_name   = "app_vm_interface"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.app_lb_backend_pool.id
+}
