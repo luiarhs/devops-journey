@@ -61,3 +61,69 @@ resource "azurerm_network_interface" "db_vm_interface" {
     private_ip_address_allocation = "Dynamic"
   }
 }
+
+#4 Define Linux Virtual Machines
+resource "azurerm_virtual_machine" "app_vm" {
+  name                  = "app-vm"
+  location              = azurerm_resource_group.rg.location
+  resource_group_name   = azurerm_resource_group.rg.name
+  network_interface_ids = [azurerm_network_interface.app_vm_interface.id]
+  vm_size               = "Standard_B2s"
+
+  storage_os_disk {
+    name              = "osdisk-app"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
+  }
+
+  storage_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "20_04-lts"
+    version   = "latest"
+  }
+
+  os_profile {
+    computer_name  = "app-vm"
+    admin_username = "adminuser"
+    admin_password = "adminPa$$word"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = false
+  }
+}
+
+resource "azurerm_virtual_machine" "db_vm" {
+  name                  = "db-vm"
+  location              = azurerm_resource_group.rg.location
+  resource_group_name   = azurerm_resource_group.rg.name
+  network_interface_ids = [azurerm_network_interface.db_vm_interface.id]
+  vm_size               = "Standard_B2s"
+
+  storage_os_disk {
+    name              = "osdisk-db"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
+  }
+
+  storage_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "20_04-lts"
+    version   = "latest"
+  }
+
+  os_profile {
+    computer_name  = "db-vm"
+    admin_username = "adminuser"
+    admin_password = "adminPa$$word"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = false
+  }
+}
+
