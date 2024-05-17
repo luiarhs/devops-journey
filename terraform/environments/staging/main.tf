@@ -127,3 +127,19 @@ resource "azurerm_virtual_machine" "db_vm" {
   }
 }
 
+#5 Define a Public IP Address
+resource "azurerm_public_ip" "public_ip_bastion" {
+  name                = "public_ip_bastion"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_public_ip" "public_ip_lb" {
+  name                = "public_ip_lb"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
