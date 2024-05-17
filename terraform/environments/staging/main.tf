@@ -159,3 +159,15 @@ resource "azurerm_bastion_host" "bastion" {
 
   sku = "Standard"
 }
+#7 Define Load Balancer
+resource "azurerm_lb" "app_lb" {
+  name                = "app_lb"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  sku                 = "Standard"
+
+  frontend_ip_configuration {
+    name                 = "app_lb_config"
+    public_ip_address_id = azurerm_public_ip.public_ip_lb.id
+  }
+}
