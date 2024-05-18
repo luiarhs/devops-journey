@@ -1,7 +1,17 @@
-#1 Define a Virtual Network
+terraform {
+  required_version = "1.8.3"
+
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "3.104.0"
+    }
+  }
+}
 provider "azurerm" {
   features {}
 }
+#1 Define a Virtual Network
 
 resource "azurerm_resource_group" "rg" {
   name     = "rg-divelement"
@@ -180,14 +190,9 @@ resource "azurerm_lb_backend_address_pool" "app_lb_backend_pool" {
 }
 
 #9 Define Network Interface Backend Address Pool Association
-# resource "azurerm_network_interface_backend_address_pool_association" "app_vm_association" {
-#   network_interface_id    = azurerm_network_interface.app_vm_interface.id
-#   ip_configuration_name    = azurerm_network_interface.app_vm_interface.ip_configuration.0.name
-#   backend_address_pool_id  = azurerm_lb_backend_address_pool.app_lb_backend_pool.id
-# }
 resource "azurerm_network_interface_backend_address_pool_association" "app_lb_association" {
   network_interface_id    = azurerm_network_interface.app_vm_interface.id
-  ip_configuration_name   = "app_vm_interface"
+  ip_configuration_name    = "app_vm_interface" # azurerm_network_interface.app_vm_interface.ip_configuration.0.name
   backend_address_pool_id = azurerm_lb_backend_address_pool.app_lb_backend_pool.id
 }
 
@@ -200,7 +205,7 @@ resource "azurerm_lb_rule" "app_tcp_80" {
   frontend_port                  = 80
   backend_port                   = 80
   frontend_ip_configuration_name = "app_lb_config"
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.app_lb_backend_pool.id
+  # backend_address_pool_id        = azurerm_lb_backend_address_pool.app_lb_backend_pool.id
 }
 
 resource "azurerm_lb_rule" "app_tcp_443" {
@@ -211,6 +216,6 @@ resource "azurerm_lb_rule" "app_tcp_443" {
   frontend_port                  = 443
   backend_port                   = 443
   frontend_ip_configuration_name = "app_lb_config"
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.app_lb_backend_pool.id
+  # backend_address_pool_id        = azurerm_lb_backend_address_pool.app_lb_backend_pool.id
 }
 
