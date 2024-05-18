@@ -10,33 +10,38 @@
 
 
 # Create Azure Container Registry
-resource "azurerm_container_registry" "scacontainerregistry" {
-  name                = var.container_registry_name
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  sku                 = var.registry-sku
-}
+# resource "azurerm_container_registry" "scacontainerregistry" {
+#   name                = var.container_registry_name
+#   resource_group_name = var.resource_group_name
+#   location            = var.location
+#   sku                 = var.registry-sku
+# }
 
 
 # Create Storage Account to house Azure File Share
-resource "azurerm_storage_account" "storage" {
-  name                     = var.storage_account_name
-  resource_group_name      = var.resource_group_name
-  location                 = var.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  account_kind             = "StorageV2"
-}
+# resource "azurerm_storage_account" "storage" {
+#   name                     = var.storage_account_name
+#   resource_group_name      = var.resource_group_name
+#   location                 = var.location
+#   account_tier             = "Standard"
+#   account_replication_type = "LRS"
+#   account_kind             = "StorageV2"
+# }
 
 
 # Include configurations for dev environment
-module "dev" {
-  source = "./environments/dev"
+# module "dev" {
+#   source = "./environments/dev"
+# }
+
+# Include configurations for staging environment
+module "staging" {
+  source = "./environments/staging"
 }
 
 # Include configurations for prod environment
-module "prod_environment" {
-  source = "./environments/prod"
-}
+# module "prod_environment" {
+#   source = "./environments/prod"
+# }
 
 # Other global configurations and resources can go here
