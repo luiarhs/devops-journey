@@ -35,9 +35,9 @@
 # }
 
 # Include configurations for staging environment
-module "staging" {
-  source = "./environments/staging"
-}
+# module "staging" {
+#   source = "./environments/staging"
+# }
 
 # Include configurations for prod environment
 # module "prod_environment" {
