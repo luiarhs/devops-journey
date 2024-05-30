@@ -1,14 +1,12 @@
 # terraform/main.tf
 
-import {
-  id = "/subscriptions/${id}/resourceGroups/journey-rg"
-  to = azurerm_resource_group.rg
+resource "azurerm_resource_group" "rg" {
+  location   = "southcentralus"
+  managed_by = null
+  name       = "journey-rg"
+  tags       = {}
 }
 
-import {
-  id = "/subscriptions/${id}/resourceGroups/journey-rg/providers/Microsoft.Storage/storageAccounts/journeytfstate"
-  to = azurerm_storage_account.tfstate
-}
 # Define any global resources that are shared across all environments
 // For example, you might define a storage account, virtual network, etc.
 # Create Resource Group
