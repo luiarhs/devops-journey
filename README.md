@@ -1,6 +1,19 @@
 # DevOps Journey
 ## From Zero to Hero
 
+### Build Pipeline - CI
+- Implement Build Pipeline (Continuous Integration Pipeline)
+- Use `CopyFiles` and `PublishArtifacts` Tasks in Build Pipeline
+### Release Pipelines - CD
+- Implement Deployment stages `Dev, QA, Stage and Prod`
+- In each stage implement below listed Tasks for a `Ubuntu Agent`
+ - terraform install 
+ - terraform init
+ - terraform validate
+ - terraform plan
+ - terraform apply -auto-approve
+- Test both CI CD Pipelines
+
 ### Install Dependencies
 
 - Azure Subscription: https://azure.microsoft.com/en-us/free/
