@@ -24,3 +24,9 @@ resource "azurerm_linux_virtual_machine" "web_linuxvm" {
  #custom_data = filebase64("${path.module}/app-scripts/redhat-webvm-script.sh")
  custom_data = base64encode(local.webvm_custom_data)
 }
+
+# Declare the local variable 'resource_name_prefix'
+locals {
+ resource_name_prefix = "my-resource-prefix"
+ webvm_custom_data   = file("${path.module}/app-scripts/redhat-webvm-script.sh")
+}
