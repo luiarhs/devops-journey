@@ -26,6 +26,14 @@ variable "node_count" {
   default = 3
 }
 
+variable "business_division" {
+  description = "The business division"
+  type        = string
+}
+variable "rg_location" {
+  description = "The business division"
+  type        = string
+}
 # variable "k8s_version" {
 #   type    = string
 #   default = "1.28.5"
