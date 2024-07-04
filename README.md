@@ -1,5 +1,6 @@
-# DevOps Journey
-## From Zero to Hero
+# DevSecOps Journey
+## Roadmap to be a DevSecOps Hero 🦸
+
 
 ### Build Pipeline - CI
 - Implement Build Pipeline (Continuous Integration Pipeline)
